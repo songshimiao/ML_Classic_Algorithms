@@ -60,7 +60,7 @@ class LinearRegression:
         '''
         num_examples = data.shape[0]
         delta = LinearRegression.hypothesis(self.data, self.theta) - labels
-        loss = (1/2)*np.dot(delta.T, delta)
+        loss = (1/2)*np.dot(delta.T, delta)/num_examples
         return loss[0][0]
 
     @staticmethod
