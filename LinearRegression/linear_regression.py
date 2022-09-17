@@ -6,21 +6,19 @@ from prepare_for_training import prepare_for_training
 
 
 class LinearRegression:
-    def __init__(self, data, labels, polynomial_degree=0, sinusoid_degree=0, normalize_data=True):
+    def __init__(self, data, labels, normalize_data=True):
         '''
         1. 对数据进行预处理操作
         2. 得到所有的特征个数
         3. 初始化参数矩阵
         '''
         (data_processed, features_mean, features_deviation) = prepare_for_training(
-            data, polynomial_degree=0, sinusoid_degree=0, normalize_data=True)
+            data, normalize_data=True)
 
         self.data = data_processed
         self.labels = labels
         self.features_mean = features_mean
         self.features_deviation = features_deviation
-        self.polynomial_degree = polynomial_degree
-        self.sinusoid_degree = sinusoid_degree
         self.normalize_data = normalize_data
 
         num_features = self.data.shape[1]
@@ -69,8 +67,8 @@ class LinearRegression:
         return predictions
 
     def get_loss(self, data, labels):
-        data_processed = prepare_for_training.prepare_for_training(
-            data, self.polynomial_degree, self.sinusoid_degree, self.normalize_data)[0]
+        data_processed = prepare_for_training(
+            data, self.normalize_data)[0]
 
         return self.loss_function(data_processed, labels)
 
@@ -79,7 +77,7 @@ class LinearRegression:
         用训练好的参数模型，去预测得到回归结果
         '''
         data_processed = prepare_for_training(
-            data, self.polynomial_degree, self.sinusoid_degree, self.normalize_data)[0]
+            data, self.normalize_data)[0]
 
         predicted = LinearRegression.hypothesis(data_processed, self.theta)
         return predicted

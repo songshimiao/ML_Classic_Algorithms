@@ -6,7 +6,7 @@ import numpy as np
 from normalize import normalize
 
 
-def prepare_for_training(data, polynomial_degree=0, sinusoid_degree=0, normalize_data=True):
+def prepare_for_training(data, normalize_data=True):
 
     # 计算样本总数
     num_examples = data.shape[0]
@@ -20,10 +20,6 @@ def prepare_for_training(data, polynomial_degree=0, sinusoid_degree=0, normalize
         (data_normalized, features_mean,
          features_deviation) = normalize(data_processed)
         data_processed = data_normalized
-
-    if sinusoid_degree > 0:''''''
-
-    if polynomial_degree > 0:''''''
 
     data_processed = np.hstack((np.ones((num_examples, 1)), data_processed))
 
