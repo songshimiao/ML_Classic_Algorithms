@@ -1,7 +1,8 @@
 import numpy as np
 from scipy.optimize import minimize
-import prepare_for_training
+from prepare_for_training import prepare_for_training
 import sigmoid
+from normalize import normalize
 
 
 class LogisticRegression:
@@ -26,7 +27,7 @@ class LogisticRegression:
         self.theta = np.zeros((num_unique_labels, num_features))
 
     def train(self, max_iteration=1000):
-        loss_history = []
+        loss_histories = []
         num_features = self.data.shape[1]
         for label_index, unique_label in enumerate(self.unique_labels):
             current_initial_theta = np.copy(
@@ -34,6 +35,10 @@ class LogisticRegression:
             current_labels = (self.labels == unique_label).astype(float)
             (current_theta, loss_history) = LogisticRegression.gradient_descent(
                 self.data, current_labels, current_initial_theta, max_iteration)
+            self.theta[label_index] = current_theta
+            loss_histories.append(loss_history)
+
+        return self.theta, loss_histories
 
     @staticmethod
     def gradient_descent(data, labels, current_initial_theta, max_iteration):
