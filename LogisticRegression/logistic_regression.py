@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import minimize
-from LinearRegression import prepare_for_training
-from LogisticRegression import sigmoid
+import prepare_for_training
+import sigmoid
 
 
 class LogisticRegression:
